@@ -45,28 +45,29 @@ async def get_gihub_api():
         return {"Request was successful": response.json()}
     else:
         raise HTTPException(status_code=response.status_code, detail="Request failed")
+
     
-# class Product(BaseModel):
-#     name: str
-#     price: float
-#     description: Optional[str] = None
-#     tax: Optional[float] = None   
+class Product(BaseModel):
+    name: str
+    price: float
+    description: Optional[str] = None
+    tax: Optional[float] = None   
      
-# product = {
-#     "foo": {"name": "Foo", "price": 50.2},
-#     "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
-# }
+product = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+}
     
-# @app.patch("/products/{product_id}", response_model=Product)
-# async def update_product(product_id: str, product: Product):
-#     if product_id not in products:
-#         raise HTTPException(status_code=404, detail="Product not found")
-#     stored_product_data = products[product_id]
-#     stored_product_model = Product(**stored_product_data)
-#     update_data = product.dict(exclude_unset=True)
-#     updated_product = stored_product_model.copy(update=update_data)
-#     products[product_id] = jsonable_encoder(updated_product)
-#     return updated_product
+@app.patch("/products/{product_id}", response_model=Product)
+async def update_product(product_id: str, product: Product):
+    if product_id not in products:
+        raise HTTPException(status_code=404, detail="Product not found")
+    stored_product_data = products[product_id]
+    stored_product_model = Product(**stored_product_data)
+    update_data = product.dict(exclude_unset=True)
+    updated_product = stored_product_model.copy(update=update_data)
+    products[product_id] = jsonable_encoder(updated_product)
+    return updated_product
         
 
 

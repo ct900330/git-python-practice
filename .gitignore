@@ -1,3 +1,9 @@
+index.html
+backup/
+bluestyle,css
+img_hello_git.jpg
+img_hello_world.jpg
+venv/
 *.log
 __pycache__/
 *.pyc

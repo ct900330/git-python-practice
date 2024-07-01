@@ -22,10 +22,10 @@ def test_delete_image():
     assert response.json() == {"info": "Image 'test.txt' deleted"}
 
 def test_update_image_name():
-    # Upload a file for renaming test
+    
     client.post("/uploadfile/", files={"file": ("old_name.txt", b"this is a test")})
     response = client.put("/images/old_name.txt", data={"new_name": "new_name.txt"})
     assert response.status_code == 200
     assert response.json() == {"info": "Image 'old_name.txt' renamed to 'new_name.txt'"}
-    # Clean up
+    
     client.delete("/images/new_name.txt")
